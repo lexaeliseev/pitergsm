@@ -11,7 +11,7 @@ from selenium import webdriver
 
 def test_1():
     # Браузеры
-    driver = webdriver.Chrome() # для запуска с открытием окна браузера
+    driver = webdriver.Chrome()                                         # для запуска с открытием окна браузера
     # driver = webdriver.Firefox()
 
     # Экземпляры класcов
@@ -38,6 +38,7 @@ def test_1():
 
     # Сравнение названия второго добавленного товара и этого же товара на странице Корзина
     bp.assert_value(cpc.product_label, cp.text_cart_product_2())
+
     # Сравнение стоимости второго добавленного товара и этого же товара на странице Корзина
     bp.assert_price(cpc.price, cp.print_price_2())
 
