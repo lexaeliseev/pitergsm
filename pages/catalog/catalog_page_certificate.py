@@ -40,13 +40,13 @@ class Catalog_page_certificates(Base):
     # Локатор кнопки купить на странице с товаром
     button_buy = "(//div[@class='product-price__buy'])"
 
+    # Локатор карточки товара
     card = "(//div[@class='prod-card__info-btm'])"
-
-
 
     # Локатор кнопки "В корзину"
     add_product_catalog = "//a[@class='btn btn_green btn_txt-big']"
-    # Локатор кнопки продолжить покупки
+
+    # Локатор кнопки "Продолжить покупки"
     continue_shopping = "//a[@class='pop-cart__more']"
 
     """Assert Locators"""
@@ -81,7 +81,7 @@ class Catalog_page_certificates(Base):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.price_to)))
 
-    # GETTER ЛОКАТОРА КНОПКИ "КУПИТЬ" У ТРЕТЬЕЙ КАРТОЧКИ ТОВАРА
+    # GETTER ЛОКАТОРА КНОПКИ "КУПИТЬ" КАРТОЧКИ ТОВАРА
     def get_select_products(self):
         product = WebDriverWait(self.driver, 30).until(
             expected_conditions.visibility_of_all_elements_located((By.XPATH, self.select_product)))
@@ -102,19 +102,19 @@ class Catalog_page_certificates(Base):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.continue_shopping)))
 
-    # Getter локатора поля ПОИСК на Главной странице
+    # Getter локатора поля ПОИСК
     def get_input_search(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.search)))
 
 
     """Assert Getters"""
-    # Getter локатора стоимости на странице каталога СЕРТИФИКАТЫ - ТРЕТЬЯ карточка товара
+    # Getter локатора карточки стоимости на странице каталога СЕРТИФИКАТЫ
     def get_assert_price(self):
         price_product = WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_all_elements_located((By.XPATH, self.assert_price)))
         return price_product
 
-    # Getter локатора названия на странице каталога СЕРТИФИКАТЫ - ТРЕТЬЯ карточка товара
+    # Getter локатора названия карточки на странице каталога СЕРТИФИКАТЫ
     def get_label_product(self):
         label_product = WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_all_elements_located((By.XPATH, self.label_product)))
         return label_product
@@ -136,7 +136,7 @@ class Catalog_page_certificates(Base):
         click = self.get_select_products()
         click[3].click()
 
-    def print_price(self):                                      # Стоимость выбранного товара на странице
+    def print_price(self):                                         # Стоимость выбранного товара на странице
         price_getter = self.get_assert_price()
         price_product = price_getter[3].text
         price = re.sub(r'\D', '', price_product)

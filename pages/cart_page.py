@@ -46,7 +46,7 @@ class Cart_page(Base):
     # Локатор иконки логотипа на Главной странице
     logo = "//div[@class='sh-logo']"
 
-    # Локатора проверочного слова пустой корзины
+    # Локатора проверочного слова Пустой корзины
     empty_cart = "//div[@class='nomobile']"
 
 
@@ -57,12 +57,12 @@ class Cart_page(Base):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.word)))
 
-    # Getter локатора проверочного слова пустой корзины
+    # Getter локатора проверочного слова Пустой корзины
     def get_empty_cart(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.empty_cart)))
 
-    # Getter локатора проверочного слвоа на странице офомить заказ
+    # Getter локатора проверочного слова на странице "Офомить заказ"
     def get_continue_word(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.continue_text)))
@@ -116,14 +116,14 @@ class Cart_page(Base):
         self.assert_word(self.get_word(), "Моя корзина")
 
 
-    def text_cart_product_1(self):                              # Название первого товара в Корзине
+    def text_cart_product_1(self):                                   # Название первого товара в Корзине
         label = self.get_cart_product()
         self.cart_product = label[0].text
         print("Название выбранного товара: ", self.cart_product)
         return self.cart_product
 
 
-    def print_price_1(self):                                    # Стоимость первого товара в Корзине
+    def print_price_1(self):                                         # Стоимость первого товара в Корзине
         price_getter = self.get_label_price()
         self.price_product = price_getter[0].text
         price = re.sub(r'\D', '', self.price_product)
@@ -131,7 +131,7 @@ class Cart_page(Base):
         self.price_product = price
         return self.price_product
 
-    def print_price_2(self):                                    # Стоимость второго товара в Корзине
+    def print_price_2(self):                                         # Стоимость второго товара в Корзине
         price_getter = self.get_label_price()
         self.price_product = price_getter[1].text
         price = re.sub(r'\D', '', self.price_product)
@@ -139,17 +139,17 @@ class Cart_page(Base):
         self.price_product = price
         return self.price_product
 
-    def text_cart_product_2(self):                              # Название второго товара в Корзине
+    def text_cart_product_2(self):                                    # Название второго товара в Корзине
         label = self.get_cart_product()
         self.cart_product = label[1].text
         print("Название выбранного товара: ", self.cart_product)
         return self.cart_product
 
 
-    def click_continue_button(self):                            # Переход на страницу Оформление заказа
+    def click_continue_button(self):                                  # Переход на страницу Оформление заказа
         self.get_continue_button().click()
 
-    def click_logo(self):                                       # Переход на Главную страницу
+    def click_logo(self):                                             # Переход на Главную страницу
         self.get_logo().click()
         print("Переход на Главную страницу")
 
@@ -161,7 +161,7 @@ class Cart_page(Base):
 
     """Methods"""
     def e2e_cart(self):
-        self.click_cart_button()                                # Переход на страницу Корзина
+        self.click_cart_button()                                     # Переход на страницу Корзина
 
     def e2e_continue(self):
         self.click_continue_button()

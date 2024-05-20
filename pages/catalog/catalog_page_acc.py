@@ -45,13 +45,14 @@ class Catalog_page_acc(Base):
     continue_shopping = "//a[@class='pop-cart__more']"
 
     """Assert Locators"""
-    # Локатор стоимости на странице каталога Сертификаты
+    # Локатор стоимости на странице каталога
     assert_price = "(//div[@class='prod-card__price']/div[@class='price']/div[@class='price__now'])"
 
+    # Локатор карточки товара
     card = "(//div[@class='prod-card__info-btm'])"
 
-    """Getters"""
 
+    """Getters"""
 
     # Getter локатора для перехода на Главную страницу
     def get_icon_main(self):
@@ -100,12 +101,12 @@ class Catalog_page_acc(Base):
 
 
     """Assert Getters"""
-    # Getter локатора стоимости на странице каталога СЕРТИФИКАТЫ - 5 карточка товара
+    # Getter локатора стоимости на странице каталога СЕРТИФИКАТЫ
     def get_assert_price(self):
         price_product = WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_all_elements_located((By.XPATH, self.assert_price)))
         return price_product
 
-    # Getter локатора названия на странице каталога СЕРТИФИКАТЫ - 5 карточка товара
+    # Getter локатора названия на странице каталога СЕРТИФИКАТЫ
     def get_label_product(self):
         label_product = WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_all_elements_located((By.XPATH, self.label_product)))
         return label_product
@@ -125,11 +126,11 @@ class Catalog_page_acc(Base):
 
     def click_product(self):
         click = self.get_select_products()
-        click[4].click()                        # Клик по кнопке Купить 5-ого товара
+        click[4].click()                                               # Клик по кнопке Купить 5-ого товара
 
 
 
-    def print_price_1(self):                                            # Cтоимость выбранного товара на странице
+    def print_price_1(self):                                            # Cтоимость 5-ого товара на странице
         price_getter = self.get_assert_price()
         self.price_product = price_getter[4].text
         price = re.sub(r'\D', '', self.price_product)
@@ -138,36 +139,34 @@ class Catalog_page_acc(Base):
         return self.price_product
 
 
-    def print_label_product_1(self):                                    # Название выбранного товара на странице
+    def print_label_product_1(self):                                    # Название 5-ого товара на странице
         label = self.get_label_product()
         self.product_label = label[4].text
         print("Название выбранного товара: ", self.product_label)
         return self.product_label
 
 
-    def click_button_cart(self):
+    def click_button_cart(self):                                        # Добавление товара в Корзину
         self.get_button_to_cart().click()
         print("Выбранный товар добавлен в корзину")
 
-    def click_button_continue_shopping(self):
+    def click_button_continue_shopping(self):                           # Клик по кнопке Продолжение покупок
         self.get_button_continue_shopping().click()
         print("Товар добавлен в корзину, продолжение покупок.")
 
-    # Клик по кнопке Купить на странице с товаром
-    def click_button_buy(self):
+    def click_button_buy(self):                                         # Клик по кнопке Купить на странице с товаром
         self.get_button_bye().click()
 
 
     """Methods"""
     def e2e_product(self):                                          # Работа с 5 карточкой товара
         self.click_button_acc()                                     # Переход на страницу Аксессуары
-        # self.filters()
-        self.move_to_element(self.driver, self.select_product, 5)   # Перемещение к карточке товара
+        self.move_to_element(self.driver, self.select_product, 5)   # Перемещение к карточке 5 товара
         self.click_product()                                        # Клик по кнопке Купить
-        self.click_button_buy()
+        self.click_button_buy()                                     # Добавление товара в корзину и продолжение покупок
         self.back_page()                                            # Возврат на предыдущую страницу
-        self.print_label_product_1()                                  # Отображение названия 5 товара
-        self.print_price_1()                                          # Отображение стоимости 5 товара
+        self.print_label_product_1()                                # Отображение названия 5 товара
+        self.print_price_1()                                        # Отображение стоимости 5 товара
         self.scroll_page(0, 0)                                      # Переход в шапку Сайта
         self.click_button_icon_main()                               # Клик по логотипу сайта
 

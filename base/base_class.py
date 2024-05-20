@@ -26,13 +26,12 @@ class Base():
 
 
     """Method assert value"""
-
     def assert_value(self, text1, text2):
         assert text1 == text2
         print(f"Название товара с первой страницы: {text1} и с второй страницы: {text2} совпадают")
 
-    """Method assert price"""
 
+    """Method assert price"""
     def assert_price(self, price1, price2):
         assert price1 == price2
         print(f"Цена на странице товара {price1} и в корзине совпадают {price2}")
@@ -41,6 +40,7 @@ class Base():
     def assert_url(self, result):
         assert self.driver.current_url == result
         print(f"Значения URL: {self.driver.current_url} и {result} совпадают!")
+
 
     """Method Screenshot"""
     def get_screenshot(self):
@@ -57,7 +57,7 @@ class Base():
 
 
     """Method Move to elements"""
-    # Почитать подробнее про execute_script - сработал код с Stack OverFlow
+    # Почитать подробнее про execute_script - сработал (код с Stack OverFlow)
     def move_to_element(self, driver, locator, index=0):
         try:
             element_locator = f'({locator})[{index}]'
