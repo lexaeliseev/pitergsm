@@ -47,7 +47,7 @@ class Base():
         self.get_current_url()
         now_date = datetime.datetime.now().strftime("%d.%m_%H:%M:%S.")
         name_screenshot = 'screenshot_' + now_date + '.png'
-        self.driver.save_screenshot('/Users/aleksej/PycharmProjects/main_project/screen/' + name_screenshot)
+        self.driver.save_screenshot(f'../screen/' + name_screenshot)
 
 
     """Method Scroll Window"""

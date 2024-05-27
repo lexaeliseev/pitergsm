@@ -1,12 +1,14 @@
 import re
 import time
 
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from base.base_class import Base
 from selenium import webdriver
 from pages.catalog.catalog_page_acc import Catalog_page_acc
+from utilities.logger import Logger
 
 driver = webdriver.Chrome()
 cpc = Catalog_page_acc
@@ -16,10 +18,6 @@ cpc = Catalog_page_acc
 
 class Cart_page(Base):
 
-
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
 
     """Locators"""
     # Локатор кнопки перехода на страницу Корзина
@@ -52,22 +50,18 @@ class Cart_page(Base):
 
 
     """Getters"""
-    # Getter локатора проверочного слова на странице Корзина
     def get_word(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.word)))
 
-    # Getter локатора проверочного слова Пустой корзины
     def get_empty_cart(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.empty_cart)))
 
-    # Getter локатора проверочного слова на странице "Офомить заказ"
     def get_continue_word(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.continue_text)))
 
-    # Getter кнопка перехода на страницу Корзина
     def get_cart_button(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.cart_button)))
@@ -78,30 +72,25 @@ class Cart_page(Base):
             expected_conditions.visibility_of_all_elements_located((By.XPATH, self.label_product)))
         return cart_product
 
-    # Getter локатора кнопки "Оформить заказ" на странице Корзина
     def get_continue_button(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.continue_button)))
 
-    # Getter локатора кнопки "Удалить" 1 товар из корзины на странице Корзина
     def get_delete_product_1(self):
         del_cart_product_1 = WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.delete_product)))
         return del_cart_product_1
 
-    # Getter локатора кнопки "Удалить" 2 товар из корзины на странице Корзина
     def get_delete_product_2(self):
         del_cart_product_2 = WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.delete_product)))
         return del_cart_product_2[1]
 
 
-    # Getter стоимости певого выбранного товара на странице Корзина
     def get_label_price(self):
         label_price = WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_all_elements_located((By.XPATH, self.price)))
         return label_price
 
-    # Getter локатора иконки логотипа на Главной странице
     def get_logo(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.logo)))
@@ -161,21 +150,33 @@ class Cart_page(Base):
 
     """Methods"""
     def e2e_cart(self):
-        self.click_cart_button()                                     # Переход на страницу Корзина
+        with allure.step("e2e_cart"):
+            Logger.add_start_step(method="e2e_cart")
+            self.click_cart_button()                                     # Переход на страницу Корзина
+            Logger.add_end_step(url=self.driver.current_url, method="e2e_product")
+
 
     def e2e_continue(self):
-        self.click_continue_button()
-        self.assert_word(self.get_continue_word(), "Оформление заказа")
-        time.sleep(4)
-        self.back_page()
-        self.delete_product_1()
-        self.delete_product_1()
-        time.sleep(1)
-        self.assert_word(self.get_empty_cart(), "В вашей корзине ещё нет товаров.")
+        with allure.step("e2e_continue"):
+            Logger.add_start_step(method="e2e_continue")
+            self.click_continue_button()
+            self.assert_word(self.get_continue_word(), "Оформление заказа")
+            time.sleep(4)
+            self.back_page()
+            self.delete_product_1()
+            self.delete_product_1()
+            time.sleep(1)
+            self.assert_word(self.get_empty_cart(), "В вашей корзине ещё нет товаров.")
+            Logger.add_end_step(url=self.driver.current_url, method="e2e_continue")
+
 
 
     def return_main_page(self):
-        self.scroll_page(0, 0)
-        self.click_logo()
-        self.assert_url("https://pitergsm.ru/")
+        with allure.step("return_main_page"):
+            Logger.add_start_step(method="return_main_page")
+            self.scroll_page(0, 0)
+            self.click_logo()
+            self.assert_url("https://pitergsm.ru/")
+            Logger.add_end_step(url=self.driver.current_url, method="return_main_page")
+
 

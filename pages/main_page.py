@@ -8,10 +8,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from base.base_class import Base
 class Main_page(Base):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-
 
     """Locators"""
     # Локатор поля ПОИСК на Главной странице
@@ -22,12 +18,10 @@ class Main_page(Base):
 
     """Getters"""
 
-    # Getter локатора поля ПОИСК на Главной странице
     def get_input_search(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.search)))
 
-    # Getter локатора иконки логотипа на Главной странице
     def get_logo(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.logo)))

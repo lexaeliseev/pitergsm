@@ -1,18 +1,18 @@
 from datetime import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from base.base_class import Base
 from selenium import webdriver
 
+from utilities.logger import Logger
+import allure
 
 class Login_page(Base):
 
     url = "https://pitergsm.ru/"
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
 
     # Locators
     login = "//a[@data-pop='pop-login']"
@@ -65,14 +65,16 @@ class Login_page(Base):
 
     # Methods
     def authorization(self):
-        self.driver.get(self.url)
-        self.driver.maximize_window()
-        self.click_login_account()
-        self.input_email()
-        self.input_password()
-        self.click_enter()
-        self.assert_word(self.get_success_word(), "Личный кабинет")
-        print("Авторизация в систему прошла успешно!")
-
+        with allure.step("authorization"):
+            Logger.add_start_step(method="authorization")
+            self.driver.get(self.url)
+            self.driver.maximize_window()
+            self.click_login_account()
+            self.input_email()
+            self.input_password()
+            self.click_enter()
+            self.assert_word(self.get_success_word(), "Личный кабинет")
+            print("Авторизация в систему прошла успешно!")
+            Logger.add_end_step(url=self.driver.current_url, method="authorization")
 
 

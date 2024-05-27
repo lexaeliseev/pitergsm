@@ -1,6 +1,7 @@
 import re
 import time
 
+import allure
 import self as self
 from selenium import webdriver
 from selenium.webdriver import Keys
@@ -9,12 +10,11 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 from base.base_class import Base
+from utilities.logger import Logger
+
 
 class Catalog_page_certificates(Base):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
 
     """Locators"""
     # Локатор для перехода на Главную страницу сайта
@@ -57,22 +57,18 @@ class Catalog_page_certificates(Base):
     search = "//input[@id='smart-title-search-input']"
 
     """Getters"""
-    # Getter локатора для перехода на Главную страницу
     def get_icon_main(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.icon_main)))
 
-    # Getter локаторa для перехода в каталог Сертификаты
     def get_icon_certificate(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.icon_certificate)))
 
-    # Getter локатора проверочного слова на странице КАТАЛОГА СЕРТИФИКАТЫ
     def get_word(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.word)))
 
-    # Getters локаторов для фильтров по стоимости
     def get_price_from(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.price_from)))
@@ -81,40 +77,31 @@ class Catalog_page_certificates(Base):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.price_to)))
 
-    # GETTER ЛОКАТОРА КНОПКИ "КУПИТЬ" КАРТОЧКИ ТОВАРА
     def get_select_products(self):
         product = WebDriverWait(self.driver, 30).until(
             expected_conditions.visibility_of_all_elements_located((By.XPATH, self.select_product)))
         return product
 
-    # Getter кнопки Купить на странице товара
     def get_button_bye(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.button_buy)))
 
-    # GETTER ЛОКАТОРА КНОПКИ "В КОРЗИНУ" В МОДАЛЬНОМ ОКНЕ КАРТОЧКИ ТОВАРА
     def get_button_to_cart(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.add_product_catalog)))
 
-    # GETTER ЛОКАТОРА КНОПКИ "ПРОДОЛЖИТЬ ПОКУПКИ В МОДАЛЬНОМ ОКНЕ КАРТОЧКИ ТОВАРА
     def get_button_continue_shopping(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.continue_shopping)))
 
-    # Getter локатора поля ПОИСК
     def get_input_search(self):
         return WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable((By.XPATH, self.search)))
 
-
-    """Assert Getters"""
-    # Getter локатора карточки стоимости на странице каталога СЕРТИФИКАТЫ
     def get_assert_price(self):
         price_product = WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_all_elements_located((By.XPATH, self.assert_price)))
         return price_product
 
-    # Getter локатора названия карточки на странице каталога СЕРТИФИКАТЫ
     def get_label_product(self):
         label_product = WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_all_elements_located((By.XPATH, self.label_product)))
         return label_product
@@ -159,11 +146,9 @@ class Catalog_page_certificates(Base):
         self.get_button_continue_shopping().click()
         print("Товар добвлен в корзину, продолжение покупок.")
 
-    # Клик по кнопке Купить на странице с товаром
     def click_button_buy(self):
         self.get_button_bye().click()
 
-    # ФИЛЬТРЫ - не работаеют на сайте
     def filters(self):
         self.get_price_from().send_keys(Keys.BACKSPACE*10)
         self.get_price_from().send_keys("15000")
@@ -173,7 +158,6 @@ class Catalog_page_certificates(Base):
 
 
 
-    # НЕ РАБОТАЕТ ПОИСК НА САЙТЕ НА МОМЕНТ НАПИСАНИЯ АТК
     def enter_search(self):
         self.get_input_search().click()
         self.get_input_search().send_keys("Сертификат")
@@ -183,12 +167,16 @@ class Catalog_page_certificates(Base):
 
     """Methods"""
     def e2e_product(self):
-        self.click_button_certificates()                            # Переход на страницу Сертификаты
-        self.move_to_element(self.driver, self.select_product, 4)   # Перемещение к карточке товара
-        self.click_product()                                        # Клик по кнопке "Купить" у 3 товара
-        self.click_button_buy()                                     # Клик по кнопке "Купить"
-        self.back_page()                                            # Возврат на предыдущую страницу
-        self.print_label_product_2()                                # Отображение названия 3 товара
-        self.print_price()                                          # Отображение стоимости 3 товара
-        self.scroll_page(0, 0)                                      # Переход в шапку Сайта
-        self.click_button_icon_main()                               # Клик по логотипу сайта
+        with allure.step("e2e_product"):
+            Logger.add_start_step(method="e2e_product")
+            self.click_button_certificates()
+            self.move_to_element(self.driver, self.select_product, 4)
+            self.click_product()
+            self.click_button_buy()
+            self.back_page()
+            self.print_label_product_2()
+            self.print_price()
+            self.scroll_page(0, 0)
+            self.click_button_icon_main()
+            Logger.add_end_step(url=self.driver.current_url, method="e2e_product")
+
