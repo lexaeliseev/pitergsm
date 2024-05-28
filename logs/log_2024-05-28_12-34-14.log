@@ -1,0 +1,77 @@
+
+-----
+Test: tests/test_authorization.py::test_authorization (call)
+Start time: 2024-05-28 12:34:18.096550
+Start name method: authorization
+
+End time: 2024-05-28 12:34:25.497343
+End name method: authorization
+URL: https://pitergsm.ru/
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke (call)
+Start time: 2024-05-28 12:34:27.546015
+Start name method: authorization
+
+End time: 2024-05-28 12:34:36.109338
+End name method: authorization
+URL: https://pitergsm.ru/
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke (call)
+Start time: 2024-05-28 12:34:36.110054
+Start name method: e2e_product
+
+End time: 2024-05-28 12:34:46.829428
+End name method: e2e_product
+URL: https://pitergsm.ru/
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke (call)
+Start time: 2024-05-28 12:34:46.832585
+Start name method: e2e_product
+
+End time: 2024-05-28 12:34:55.706264
+End name method: e2e_product
+URL: https://pitergsm.ru/
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke (call)
+Start time: 2024-05-28 12:34:55.706688
+Start name method: e2e_cart
+
+End time: 2024-05-28 12:34:56.894164
+End name method: e2e_product
+URL: https://pitergsm.ru/personal/cart/
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke (call)
+Start time: 2024-05-28 12:34:57.380604
+Start name method: e2e_continue
+
+End time: 2024-05-28 12:35:08.860227
+End name method: e2e_continue
+URL: https://pitergsm.ru/personal/cart/index.php
+
+-----
+
+-----
+Test: tests/test_smoke.py::test_smoke (call)
+Start time: 2024-05-28 12:35:08.861007
+Start name method: return_main_page
+
+End time: 2024-05-28 12:35:10.994955
+End name method: return_main_page
+URL: https://pitergsm.ru/
+
+-----
