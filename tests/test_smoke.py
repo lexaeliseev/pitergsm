@@ -1,11 +1,11 @@
+from selenium import webdriver
+import pytest
+import allure
+from pages.login_page import Login_page
 from base.base_class import Base
 from pages.catalog.catalog_page_acc import Catalog_page_acc
 from pages.catalog.catalog_page_certificate import Catalog_page_certificates
 from pages.cart_page import Cart_page
-from pages.login_page import Login_page
-from selenium import webdriver
-import pytest
-import allure
 
 @allure.description("test_smoke - добавление товара в корзину со страницы каталога, сравнение, что товар на странице корзина остался прежним и удаление товара из корзины")
 def test_smoke():
